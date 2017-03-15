@@ -10,5 +10,15 @@ package discountstrategyproject;
  * @author Alex
  */
 public class GUIReceipt implements ReceiptOutputStrategy {
+
+    @Override
+    public void generateReceipt(String heading, Customer customer, LineItem[] lineItems) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void outputReceipt() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

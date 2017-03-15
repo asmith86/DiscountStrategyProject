@@ -10,5 +10,8 @@ package discountstrategyproject;
  * @author Alex
  */
 public interface ReceiptOutputStrategy {
+    public abstract void generateReceipt(String heading, Customer customer, 
+            LineItem[] lineItems);
     
+    public abstract void outputReceipt();
 }

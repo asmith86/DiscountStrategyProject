@@ -5,6 +5,8 @@
  */
 package discountstrategyproject;
 
+
+
 /**
  *
  * @author Alex
@@ -13,12 +15,19 @@ public class LineItem {
     private Product product;
     private int quantity;
     
+    
+    public LineItem(Product product, int quantity){
+        this.setProduct(product);
+        this.setQuantity(quantity);
+        
+    }
+    
 
     public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public final void setProduct(Product product) {
         this.product = product;
     }
 
@@ -26,7 +35,7 @@ public class LineItem {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public final void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     

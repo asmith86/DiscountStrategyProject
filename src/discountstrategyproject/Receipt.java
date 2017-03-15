@@ -13,13 +13,14 @@ public class Receipt {
     private ReceiptOutputStrategy output;
     private String heading;
     private LineItem[] lineItems;
-    private double netTotal;
-    private double finalTotal;
+    private Customer customer;
+    private double netTotal; //may not be necessary since it is a calculated value
+    private double finalTotal; //may not be necessary '' ''
 
-    public Receipt(String heading, ReceiptOutputStrategy output){
+    public Receipt(String heading, ReceiptOutputStrategy output,DataStorageStrategy dataStorage,String custId){
         this.setHeading(heading);
         this.setOutput(output);
-        
+        customer = dataStorage.findCustomer(custId);
         this.lineItems = new LineItem[0];
         
     }
@@ -65,13 +66,28 @@ public class Receipt {
     public void setFinalTotal(double finalTotal) {
         this.finalTotal = finalTotal;
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+//    public void setCustomer(String custId, DataStorageStrategy data) {
+//        if(null == customer){
+//            this.customer = new Customer("000", "Anonymous");
+//        }
+//        this.customer = data.findCustomer(custId);
+//    }
+//    
     
-    public void createLineItem(String prodId, String custId, int qty, 
+    
+    public void createLineItem(String prodId, int qty, 
                 DataStorageStrategy storage){
-        
+        Product p = storage.findProduct(prodId);
+        LineItem line = new LineItem(p, qty);
+        this.addLineItemToReceipt(line);
     }
     
-    public void addLineItemToReceipt(LineItem line) {
+    private void addLineItemToReceipt(LineItem line) {
         LineItem[] temp = new LineItem[this.lineItems.length + 1];
         for (int i = 0; i < lineItems.length; i++) {
             temp[i] = lineItems[i];
@@ -79,6 +95,10 @@ public class Receipt {
         temp[temp.length - 1] = line;
         lineItems = temp;
         temp = null;
+    }
+    
+    public void generateReceipt(){
+        this.output.generateReceipt(heading, customer, lineItems);
     }
    
 }
