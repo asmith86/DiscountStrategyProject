@@ -14,8 +14,7 @@ public class Receipt {
     private String heading;
     private LineItem[] lineItems;
     private Customer customer;
-    private double netTotal; //may not be necessary since it is a calculated value
-    private double finalTotal; //may not be necessary '' ''
+     
 
     public Receipt(String heading, ReceiptOutputStrategy output,DataStorageStrategy dataStorage,String custId){
         this.setHeading(heading);
@@ -25,79 +24,67 @@ public class Receipt {
         
     }
     
-    public ReceiptOutputStrategy getOutput() {
+    public final ReceiptOutputStrategy getOutput() {
         return output;
     }
 
     public final void setOutput(ReceiptOutputStrategy output) {
+        if(null == output){
+            throw new IllegalArgumentException("Did not provide an output strategy object");
+        }
         this.output = output;
     }
     
     
 
-    public String getHeading() {
+    public final String getHeading() {
         return heading;
     }
 
     public final void setHeading(String heading) {
+        if(null == heading || heading.isEmpty()){
+            throw new IllegalArgumentException("Heading is null or empty");
+        }
         this.heading = heading;
     }
 
-    public LineItem[] getLineItems() {
+    public final LineItem[] getLineItems() {
         return lineItems;
     }
 
-    public void setLineItems(LineItem[] lineItems) {
+    public final void setLineItems(LineItem[] lineItems) {
+        if(null == lineItems){
+            throw new IllegalArgumentException("LineItems is null");
+        }
+            
         this.lineItems = lineItems;
     }
 
-    public double getNetTotal() {
-        return netTotal;
-    }
-
-    public void setNetTotal(double netTotal) {
-        this.netTotal = netTotal;
-    }
-
-    public double getFinalTotal() {
-        return finalTotal;
-    }
-
-    public void setFinalTotal(double finalTotal) {
-        this.finalTotal = finalTotal;
-    }
-
-    public Customer getCustomer() {
+  
+    public final Customer getCustomer() {
         return customer;
     }
 
-//    public void setCustomer(String custId, DataStorageStrategy data) {
-//        if(null == customer){
-//            this.customer = new Customer("000", "Anonymous");
-//        }
-//        this.customer = data.findCustomer(custId);
-//    }
-//    
+ 
     
-    
-    public void createLineItem(String prodId, int qty, 
+    public final void createLineItem(String prodId, int qty, 
                 DataStorageStrategy storage){
         Product p = storage.findProduct(prodId);
         LineItem line = new LineItem(p, qty);
         this.addLineItemToReceipt(line);
     }
     
-    private void addLineItemToReceipt(LineItem line) {
+    private final void addLineItemToReceipt(LineItem line) {
         LineItem[] temp = new LineItem[this.lineItems.length + 1];
-        for (int i = 0; i < lineItems.length; i++) {
-            temp[i] = lineItems[i];
+        for (int i = 0; i < this.lineItems.length; i++) {
+            temp[i] = this.lineItems[i];
         }
         temp[temp.length - 1] = line;
-        lineItems = temp;
+        this.lineItems = temp;
         temp = null;
     }
     
-    public void generateReceipt(){
+    public final void generateReceipt(){
         this.output.generateReceipt(heading, customer, lineItems);
     }
    

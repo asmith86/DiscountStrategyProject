@@ -16,16 +16,19 @@ public class FlatDiscount implements DiscountStrategy {
         this.setAmountOff(amountOff);
     }
 
-    public double getAmountOff() {
+    public final double getAmountOff() {
         return amountOff;
     }
 
     public final void setAmountOff(double amountOff) {
+        if(amountOff < 0){
+            throw new IllegalArgumentException("amount off product cannot be less than zero.");
+        }
         this.amountOff = amountOff;
     }
 
     @Override
-    public double getCalculatedDiscount(double price) {
+    public final double getCalculatedDiscount(double price) {
        return price - this.getAmountOff();
     }
     

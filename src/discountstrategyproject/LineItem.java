@@ -28,6 +28,9 @@ public class LineItem {
     }
 
     public final void setProduct(Product product) {
+        if(null == product){
+            throw new IllegalArgumentException("Product has not been provided.");
+        }
         this.product = product;
     }
 
@@ -36,6 +39,9 @@ public class LineItem {
     }
 
     public final void setQuantity(int quantity) {
+        if(quantity <= 0){
+            throw new IllegalArgumentException("quantity cannot be zero or less.");
+        }
         this.quantity = quantity;
     }
     

@@ -9,6 +9,7 @@ package discountstrategyproject;
  *
  * @author Alex
  */
+
 public class Customer {
     private String customerId;
     private String customerName;
@@ -19,19 +20,26 @@ public class Customer {
         this.setCustomerName(customerName);
     }
 
-    public String getCustomerId() {
+    public final String getCustomerId() {
         return customerId;
     }
 
     public final void setCustomerId(String customerId) {
+        if(customerId == null || customerId.isEmpty()){
+            throw new IllegalArgumentException("Customer ID cannot be null or empty.");
+        }
+            
         this.customerId = customerId;
     }
 
-    public String getCustomerName() {
+    public final String getCustomerName() {
         return customerName;
     }
 
     public final void setCustomerName(String customerName) {
+         if(customerName == null || customerName.isEmpty()){
+            throw new IllegalArgumentException("Customer Name cannot be null or empty.");
+        }
         this.customerName = customerName;
     }
     

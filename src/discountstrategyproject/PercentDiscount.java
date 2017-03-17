@@ -16,16 +16,20 @@ public class PercentDiscount implements DiscountStrategy {
         this.setDiscountPercentage(discountPercentage);
     }
 
-    public double getDiscountPercentage() {
+    public final double getDiscountPercentage() {
         return discountPercentage;
     }
 
     public final void setDiscountPercentage(double discountPercentage) {
+        if(discountPercentage > 1.0 || discountPercentage < 0){
+            throw new IllegalArgumentException("Percent discount cannot be " + 
+                    "greater than 1 or less than zero.");
+        }
         this.discountPercentage = discountPercentage;
     }
 
     @Override
-    public double getCalculatedDiscount(double price) {
+    public final double getCalculatedDiscount(double price) {
         return price - (this.getDiscountPercentage() * price);
     }
     

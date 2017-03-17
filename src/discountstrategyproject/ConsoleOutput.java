@@ -9,6 +9,7 @@ package discountstrategyproject;
  *
  * @author Alex
  */
+
 public class ConsoleOutput implements ReceiptOutputStrategy {
     /* 
     * Receipt shall print following this format:
@@ -21,8 +22,20 @@ public class ConsoleOutput implements ReceiptOutputStrategy {
     * Total Due
     */
     
+    private String output;
+
+    public String getOutput() {
+        return output;
+    }
+
+    public void setOutput(String output) {
+        this.output = output;
+    }
+    
+    
   
     
+    @Override
     public void generateReceipt(String heading, Customer customer, 
             LineItem[] lineItems){
         
@@ -42,11 +55,14 @@ public class ConsoleOutput implements ReceiptOutputStrategy {
                     " " + line.getDiscountedSubtotal() + "\n";
         }
         
-       
-        this.outputReceipt(outputString);
+        this.setOutput(outputString);
+        
     }
     
-    public void outputReceipt(String output){
-        System.out.println(output);
+
+
+    @Override
+    public void outputReceipt() {
+        System.out.println(this.output);
     }
 }

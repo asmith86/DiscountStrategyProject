@@ -23,23 +23,29 @@ public class Product {
         this.setDiscount(discount);
     }
 
-    public String getProductId() {
+    public final String getProductId() {
         return productId;
     }
 
     public final void setProductId(String productId) {
+        if(productId == null || productId.isEmpty()){
+            throw new IllegalArgumentException("Invalid product ID");
+        }
         this.productId = productId;
     }
 
-    public String getProductName() {
+    public final String getProductName() {
         return productName;
     }
 
     public final void setProductName(String productName) {
+        if(productName == null || productName.isEmpty()){
+            throw new IllegalArgumentException("Invalid product name");
+        }
         this.productName = productName;
     }
 
-    public double getPrice() {
+    public final double getPrice() {
         return price;
     }
 
@@ -47,11 +53,14 @@ public class Product {
         this.price = price;
     }
 
-    public DiscountStrategy getDiscount() {
+    public final DiscountStrategy getDiscount() {
         return discount;
     }
 
     public final void setDiscount(DiscountStrategy discount) {
+        if(discount == null){
+            throw new IllegalArgumentException("Did not provide a discount strategy object");
+        }
         this.discount = discount;
     }
     

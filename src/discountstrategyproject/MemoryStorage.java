@@ -27,10 +27,7 @@ public class MemoryStorage implements DataStorageStrategy {
     @Override
     public final Customer findCustomer(String custId) {
 
-        if (custId == null || custId.isEmpty()) {
-            throw new IllegalArgumentException("Customer must be found for now.");
-        }
-
+      
         Customer customer = null;
         for (Customer c : customers) {
             if (custId.equals(c.getCustomerId())) {
@@ -45,9 +42,7 @@ public class MemoryStorage implements DataStorageStrategy {
     @Override
     public final Product findProduct(String prodId) {
 
-        if (prodId == null || prodId.isEmpty()) {
-            throw new IllegalArgumentException("Product must be found");
-        }
+        
 
         Product product = null;
         for (Product p : products) {
