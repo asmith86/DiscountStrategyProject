@@ -24,11 +24,14 @@ public class ConsoleOutput implements ReceiptOutputStrategy {
     
     private String output;
 
-    public String getOutput() {
+    public final String getOutput() {
         return output;
     }
 
-    public void setOutput(String output) {
+    public final void setOutput(String output) {
+        if(null == output || output.isEmpty()){
+            throw new IllegalArgumentException("Output cannot be null or empty.");
+        }
         this.output = output;
     }
     
@@ -36,33 +39,45 @@ public class ConsoleOutput implements ReceiptOutputStrategy {
   
     
     @Override
-    public void generateReceipt(String heading, Customer customer, 
+    public final void generateReceipt(String heading, Customer customer, 
             LineItem[] lineItems){
         
+        double netTotal = 0.0;
+        double finalTotal = 0.0;
         String outputString = "";
         
-        outputString += heading + "\n\n";
-        outputString += "ID Product Price Qty Subtotal Discount";
-        outputString += "--------------------------------------";
         outputString += customer.getCustomerName() + "\n\n";
+        outputString += heading + "\n\n";
+        outputString += "ID Product Price Qty Subtotal Discount\n";
+        outputString += "--------------------------------------\n";
+       
         
         for(LineItem line : lineItems){
+            
+            netTotal += line.getSubtotal();
+            finalTotal += line.getDiscountedSubtotal();
             outputString += line.getProduct().getProductId() +
                     " " + line.getProduct().getProductName() +
-                    " " + line.getProduct().getPrice() + 
+                    " $" + line.getProduct().getPrice() + 
                     " " + line.getQuantity() + 
-                    " " + line.getSubtotal() + 
-                    " " + line.getDiscountedSubtotal() + "\n";
+                    " $" + line.getSubtotal() + 
+                    " $" + line.getDiscountedSubtotal() + "\n";
+            
         }
         
+        outputString += "\n\n\n";
+        outputString += "Net total: $" + netTotal + "\n";
+        outputString += "Final total: $" + finalTotal;
         this.setOutput(outputString);
         
     }
     
-
+    
 
     @Override
-    public void outputReceipt() {
+    public final void outputReceipt() {
+        
         System.out.println(this.output);
+        System.out.println("");
     }
 }

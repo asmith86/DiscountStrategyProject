@@ -87,5 +87,7 @@ public class Receipt {
     public final void generateReceipt(){
         this.output.generateReceipt(heading, customer, lineItems);
     }
+    
+    
    
 }

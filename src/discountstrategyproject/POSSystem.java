@@ -13,14 +13,15 @@ package discountstrategyproject;
 
 public class POSSystem {
     private Receipt receipt;
-    private DataStorageStrategy dataStorage;
+    private DataStorageStrategy data;
+    
     
     
 
     
     public final void startNewSale(String custId,String receiptHeading, 
             ReceiptOutputStrategy output, DataStorageStrategy dataStorage) {
-        this.setDataStorage(dataStorage); 
+        
         receipt = new Receipt(receiptHeading,output,dataStorage,custId);
     }
 
@@ -35,23 +36,26 @@ public class POSSystem {
         this.receipt = receipt;
     }
 
-    public final DataStorageStrategy getDataStorage() {
-        return dataStorage;
+    public DataStorageStrategy getData() {
+        return data;
     }
 
-    public final void setDataStorage(DataStorageStrategy dataStorage) {
-         if(null == dataStorage){
-            throw new IllegalArgumentException("Did not pass a data storage object");
+    public final void setData(DataStorageStrategy data) {
+        if(null == data){
+            throw new IllegalArgumentException("Data object is null");
         }
-        this.dataStorage = dataStorage;
+        this.data = data;
     }
+
+   
     
     
     public final void processItem(String prodId, int qty){
-        this.receipt.createLineItem(prodId, qty, dataStorage);
+        this.receipt.createLineItem(prodId, qty, data);
     }
     
     public final void finishSale(){
+        this.receipt.generateReceipt();
         this.receipt.getOutput().outputReceipt();
     }
     

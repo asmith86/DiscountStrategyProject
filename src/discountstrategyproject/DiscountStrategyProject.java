@@ -23,19 +23,24 @@ public class DiscountStrategyProject {
     //USE CUSTOMER, PRODUCT IN THE LINEITEM ONLY. PRODUCT ID/CUSTOMER ID CAN BE
     //PASSED AROUND IF NEEDED.
     
+    //REMEMBER GETTERS AND SETTERS FOR ALL PROPERTIES.
+    
     public static void main(String[] args) {
+        DataStorageStrategy data = new MemoryStorage();
         POSSystem pos = new POSSystem();
         
         pos.startNewSale("101",
                 "Thank you for shopping at Kohls", new ConsoleOutput(),
-                new MemoryStorage()
-        );
+                new MemoryStorage());
        
         pos.processItem("A100", 3);
         pos.processItem("B100", 2);
         pos.processItem("C100", 1);
         
         pos.finishSale();
+        
+        //Start new sale
+       
                
     }
     
