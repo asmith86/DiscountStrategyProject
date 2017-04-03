@@ -11,18 +11,31 @@ package discountstrategyproject;
  */
 public class Receipt {
     private ReceiptOutputStrategy output;
+    private ReceiptFormatStrategy receiptFormat;
     private String heading;
     private LineItem[] lineItems;
     private Customer customer;
      
 
-    public Receipt(String heading, ReceiptOutputStrategy output,DataStorageStrategy dataStorage,String custId){
+    public Receipt(String heading, ReceiptOutputStrategy output,DataStorageStrategy dataStorage,String custId,
+            ReceiptFormatStrategy rf){
         this.setHeading(heading);
         this.setOutput(output);
+        this.setReceiptFormat(rf);
         customer = dataStorage.findCustomer(custId);
         this.lineItems = new LineItem[0];
         
     }
+
+    public ReceiptFormatStrategy getReceiptFormat() {
+        return receiptFormat;
+    }
+
+    public final void setReceiptFormat(ReceiptFormatStrategy receiptFormat) {
+        this.receiptFormat = receiptFormat;
+    }
+    
+    
     
     public final ReceiptOutputStrategy getOutput() {
         return output;
@@ -85,7 +98,8 @@ public class Receipt {
     }
     
     public final void generateReceipt(){
-        this.output.generateReceipt(heading, customer, lineItems);
+        this.output.outputReceipt(this.receiptFormat.getReceiptForOutput(heading,
+                customer, lineItems));
     }
     
     

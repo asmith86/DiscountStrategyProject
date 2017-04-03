@@ -26,12 +26,12 @@ public class DiscountStrategyProject {
     //REMEMBER GETTERS AND SETTERS FOR ALL PROPERTIES.
     
     public static void main(String[] args) {
-        DataStorageStrategy data = new MemoryStorage();
+        
         POSSystem pos = new POSSystem();
         
         pos.startNewSale("101",
                 "Thank you for shopping at Kohls", new ConsoleOutput(),
-                new MemoryStorage());
+                new MemoryStorage(), new BasicReceiptFormat());
        
         pos.processItem("A100", 3);
         pos.processItem("B100", 2);

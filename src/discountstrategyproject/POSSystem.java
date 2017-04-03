@@ -20,9 +20,11 @@ public class POSSystem {
 
     
     public final void startNewSale(String custId,String receiptHeading, 
-            ReceiptOutputStrategy output, DataStorageStrategy dataStorage) {
+            ReceiptOutputStrategy output, DataStorageStrategy dataStorage,
+            ReceiptFormatStrategy receiptFormat) {
         
-        receipt = new Receipt(receiptHeading,output,dataStorage,custId);
+        this.receipt = new Receipt(receiptHeading,output,dataStorage,custId, receiptFormat);
+        this.data = dataStorage;
     }
 
     public final Receipt getReceipt() {
@@ -52,11 +54,12 @@ public class POSSystem {
     
     public final void processItem(String prodId, int qty){
         this.receipt.createLineItem(prodId, qty, data);
+        
     }
     
     public final void finishSale(){
         this.receipt.generateReceipt();
-        this.receipt.getOutput().outputReceipt();
+        
     }
     
 }
