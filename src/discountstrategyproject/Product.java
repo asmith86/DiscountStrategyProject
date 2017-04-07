@@ -15,6 +15,10 @@ public class Product {
     private double price;
     private DiscountStrategy discount;
     
+    public Product(){
+        
+    }
+    
     public Product(String productId, String productName, double price, 
             DiscountStrategy discount){
         this.setProductId(productId);
@@ -28,7 +32,7 @@ public class Product {
     }
 
     public final void setProductId(String productId) {
-        if(productId == null || productId.isEmpty()){
+        if(productId == null || productId.isEmpty() || productId.length() > 4){
             throw new IllegalArgumentException("Invalid product ID");
         }
         this.productId = productId;
@@ -50,6 +54,9 @@ public class Product {
     }
 
     public final void setPrice(double price) {
+        if(price < 0){
+            throw new IllegalArgumentException("Price cannot be less than 0");
+        }
         this.price = price;
     }
 

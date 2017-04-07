@@ -12,6 +12,10 @@ package discountstrategyproject;
 public class PercentDiscount implements DiscountStrategy {
     private double discountPercentage;
     
+    public PercentDiscount(){
+        
+    }
+    
     public PercentDiscount(double discountPercentage){
         this.setDiscountPercentage(discountPercentage);
     }
